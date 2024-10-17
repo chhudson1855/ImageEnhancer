@@ -19,7 +19,6 @@ import java.awt.image.Kernel;
 import java.awt.image.LookupOp;
 import java.io.File;
 import java.io.IOException;
-
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -44,7 +43,10 @@ public class ImageEnhancer extends Component implements ActionListener {
     private static JMenu fileMenu, editMenu, imageMenu;
     public static JMenuItem exitItem, undoItem, redoItem, darkenItem,
      blurItem, sharpenItem, photoNegItem, thresholdItem;
-
+    
+    BufferedImageStack Redo;
+    BufferedImageStack Undo;
+    
     //  Students: Here, you should declare two variables to hold instances
     	//of your stack class, with one for Undo and one for Redo.
     
@@ -153,6 +155,8 @@ public class ImageEnhancer extends Component implements ActionListener {
         //  Students: Add code to create empty stack instances for the Undo stack 
         	//and the Redo stack, and put your code for this here:
         
+        Redo = new BufferedImageStack();
+        Undo = new BufferedImageStack();
     }
 
     public Dimension getPreferredSize() {
