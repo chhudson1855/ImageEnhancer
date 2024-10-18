@@ -24,11 +24,7 @@ public class BufferedImageStack {
 	
 	public int getSize()
 	{
-		for(int i = 0; i < FakeStack.length; i++) {
-			if(FakeStack[i] == null)
-				return i+1;
-		}
-		return FakeStack.length;
+		return FakeStack.length - ((int)Arrays.stream(FakeStack).filter(i -> i == null).count());
 	}
 	
 	public int getArraySize()
