@@ -25,22 +25,24 @@ public class BufferedImageStack {
 	
 	public boolean isEmpty()
 	{
-		return false;
+		for(BufferedImage a : FakeStack ) {
+			if( a == null ) return false; }
+		return true;
 	}
 	
-	public BufferedImage get()
+	public BufferedImage get(int index)
 	{
-		return null;
+		return FakeStack[index];
 	}
 	
 	public int getSize()
 	{
-		return 0;
+		return FakeStack.length - ((int)Arrays.stream(FakeStack).filter(i -> i == null).count());
 	}
 	
 	public int getArraySize()
 	{
-		return 0;
+		return FakeStack.length;
 	}
 	
 	public BufferedImage pull()
@@ -48,9 +50,11 @@ public class BufferedImageStack {
 		return null;
 	}
 	
-	public void pop()
+	public BufferedImage pop()
 	{
-		
+		BufferedImage t = FakeStack[FakeStack.length - 1]; //to return the popped value
+		FakeStack[FakeStack.length - 1] = null; //"pops" valueS
+		return t;
 	}
 	
 	public BufferedImageStack()
