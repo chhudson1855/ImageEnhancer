@@ -3,7 +3,7 @@ import java.util.*;
 
 public class BufferedImageStack {
 	
-	int[] FakeStack;
+	private BufferedImage[] FakeStack;
 	
 	public void push(BufferedImage someBufferedImage)
 	{
@@ -12,22 +12,28 @@ public class BufferedImageStack {
 	
 	public boolean isEmpty()
 	{
-		return false;
+		for(BufferedImage a : FakeStack ) {
+			if( a == null ) return false; }
+		return true;
 	}
 	
-	public BufferedImage get()
+	public BufferedImage get(int index)
 	{
-		return null;
+		return FakeStack[index];
 	}
 	
 	public int getSize()
 	{
-		return 0;
+		for(int i = 0; i < FakeStack.length; i++) {
+			if(FakeStack[i] == null)
+				return i+1;
+		}
+		return FakeStack.length;
 	}
 	
 	public int getArraySize()
 	{
-		return 0;
+		return FakeStack.length;
 	}
 	
 	public BufferedImage pull()
@@ -35,13 +41,15 @@ public class BufferedImageStack {
 		return null;
 	}
 	
-	public void pop()
+	public BufferedImage pop()
 	{
-		
+		BufferedImage t = FakeStack[FakeStack.length - 1];
+		FakeStack[FakeStack.length - 1] = null;
+		return t;
 	}
 	
 	public BufferedImageStack()
 	{
-		FakeStack = new int[2];
+		FakeStack = new BufferedImage[2];
 	}
 }
