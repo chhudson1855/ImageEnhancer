@@ -24,7 +24,7 @@ public class BufferedImageStack {
 	
 	public int getSize()
 	{
-		return FakeStack.length - ((int)Arrays.stream(FakeStack).filter(i -> i == null).count());
+		return FakeStack.length - ((int)Arrays.stream(FakeStack).filter(i -> i == null).count()); //subtracts array length from the count of "null" BufferedImages
 	}
 	
 	public int getArraySize()
@@ -39,8 +39,8 @@ public class BufferedImageStack {
 	
 	public BufferedImage pop()
 	{
-		BufferedImage t = FakeStack[FakeStack.length - 1];
-		FakeStack[FakeStack.length - 1] = null;
+		BufferedImage t = FakeStack[FakeStack.length - 1]; //to return the popped value
+		FakeStack[FakeStack.length - 1] = null; //"pops" valueS
 		return t;
 	}
 	
@@ -49,3 +49,4 @@ public class BufferedImageStack {
 		FakeStack = new BufferedImage[2];
 	}
 }
+
