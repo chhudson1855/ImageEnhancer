@@ -99,8 +99,8 @@ public class ImageEnhancer extends Component implements ActionListener {
      menuBar.add(editMenu);
      menuBar.add(imageMenu);
      
-     undoItem.setEnabled(false);
-     redoItem.setEnabled(false);
+     undoItem.setEnabled(true);
+     redoItem.setEnabled(true);
      
     }
     void setUpImageTransformations() {
@@ -182,6 +182,12 @@ public class ImageEnhancer extends Component implements ActionListener {
     public void threshold() {
   biFiltered = threshold_op.filter(biWorking, null);
     }
+    public void undo() {
+    	Undo.push(getBufferedImage());
+    }
+    public void redo() {
+    	Redo.push(getBufferedImage());
+    }
        
     // We handle menu selection events here: //
     public void actionPerformed(ActionEvent e) {
@@ -192,6 +198,9 @@ public class ImageEnhancer extends Component implements ActionListener {
         //  these items when the user selects them.
 
      //System.out.println("The actionEvent is "+e); // This can be useful when debugging.
+     if (e.getSource()==undoItem) { undo(); }
+     if (e.getSource()==redoItem) { redo(); }
+    	
      if (e.getSource()==exitItem) { System.exit(0); }
      if (e.getSource()==blurItem) { blur(); }
      if (e.getSource()==sharpenItem) { sharpen(); }
@@ -220,7 +229,7 @@ public class ImageEnhancer extends Component implements ActionListener {
     }
     
     public void run() {
-        JFrame f = new JFrame("ImageEnhancer without Undo or Redo"); // Students should update this.
+        JFrame f = new JFrame("ImageEnhancer"); // Students should update this.
         f.addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {System.exit(0);}
         });

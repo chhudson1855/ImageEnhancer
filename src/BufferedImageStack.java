@@ -3,11 +3,24 @@ import java.util.*;
 
 public class BufferedImageStack {
 	
-	int[] FakeStack;
+	BufferedImage[] FakeStack;
 	
 	public void push(BufferedImage someBufferedImage)
 	{
+		int CountOfNull = (int) Arrays.stream(FakeStack).filter(i -> i == null).count();
 		
+		if (CountOfNull == 0)
+			FakeStack = Arrays.copyOf(FakeStack, FakeStack.length * 2);
+		
+		int nullindex = 0;
+		for (int i = 0; i < FakeStack.length; i++)
+		{
+			if (FakeStack[i] == null)
+				nullindex = i;
+				break;
+		}
+		
+		FakeStack[nullindex] = someBufferedImage;	
 	}
 	
 	public boolean isEmpty()
@@ -42,6 +55,6 @@ public class BufferedImageStack {
 	
 	public BufferedImageStack()
 	{
-		FakeStack = new int[2];
+		FakeStack = new BufferedImage[2];
 	}
 }
