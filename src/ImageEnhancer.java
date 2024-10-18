@@ -220,7 +220,7 @@ public class ImageEnhancer extends Component implements ActionListener {
     }
     
     public void run() {
-        JFrame f = new JFrame("ImageEnhancer without Undo or Redo"); // Students should update this.
+        JFrame f = new JFrame("ImageEnhancer with Undo & Redo"); // Students should update this.
         f.addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {System.exit(0);}
         });
