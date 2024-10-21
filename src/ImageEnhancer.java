@@ -182,14 +182,6 @@ public class ImageEnhancer extends Component implements ActionListener {
     public void threshold() {
   biFiltered = threshold_op.filter(biWorking, null);
     }
-    public void undo() {
-    	Redo.push(biWorking);
-    	biWorking = Undo.pop();
-    }
-    public void redo() {
-    	Redo.push(biWorking);
-    	biWorking = Redo.pop();
-    }
        
     // We handle menu selection events here: //
     public void actionPerformed(ActionEvent e) {
@@ -201,14 +193,21 @@ public class ImageEnhancer extends Component implements ActionListener {
     	
     	if (e.getSource()!=undoItem && e.getSource()!=redoItem)
     	{
-    		Undo.push(biWorking);
+    		Undo.push(copyImage(biWorking));
     		System.out.println("added to Undo");
     	}
     		
     
 	     //System.out.println("The actionEvent is "+e); // This can be useful when debugging.
-	     if (e.getSource()==undoItem) { undo(); }
-	     if (e.getSource()==redoItem) { redo(); }
+	     if (e.getSource()==undoItem) {
+	    	//Redo.push(biWorking);
+	    	 biFiltered = copyImage(Undo.pop());
+	     }
+	     
+	     if (e.getSource()==redoItem) {
+	    	 Redo.push(biWorking);
+	    	 biFiltered = Redo.pop();
+	     }
 	    	
 	     if (e.getSource()==exitItem) { System.exit(0); }
 	     if (e.getSource()==blurItem) { blur(); }

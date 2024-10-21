@@ -16,8 +16,11 @@ public class BufferedImageStack {
 		for (int i = 0; i < FakeStack.length; i++)
 		{
 			if (FakeStack[i] == null)
+			{
 				nullindex = i;
 				break;
+			}
+				
 		}
 		
 		FakeStack[nullindex] = someBufferedImage;	
@@ -47,10 +50,32 @@ public class BufferedImageStack {
 	
 	public BufferedImage pop()
 	{
-		int CountOfNull = (int) Arrays.stream(FakeStack).filter(i -> i == null).count();
+		if (FakeStack[0] == null)
+			throw new java.util.EmptyStackException();
 		
-		BufferedImage t = FakeStack[FakeStack.length - 1]; //to return the popped value
-		FakeStack[FakeStack.length - 1] = null; //"pops" valueS
+		int nullindex = 0;
+		for (int i = 0; i < FakeStack.length; i++)
+		{
+			if (FakeStack[i] == null)
+			{
+				nullindex = i;
+				break;
+			}
+				
+		}
+		BufferedImage t;
+		
+		if (nullindex > 0)
+		{
+			t = FakeStack[nullindex - 1]; //to return the popped value
+			FakeStack[nullindex - 1] = null; //"pops" valueS
+		}
+		else
+		{
+			t = FakeStack[FakeStack.length - 1]; //to return the popped value
+			FakeStack[FakeStack.length - 1] = null; //"pops" valueS
+		}
+		
 		return t;
 	}
 	
