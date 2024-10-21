@@ -45,13 +45,10 @@ public class BufferedImageStack {
 		return FakeStack.length;
 	}
 	
-	public BufferedImage pull()
-	{
-		return null;
-	}
-	
 	public BufferedImage pop()
 	{
+		int CountOfNull = (int) Arrays.stream(FakeStack).filter(i -> i == null).count();
+		
 		BufferedImage t = FakeStack[FakeStack.length - 1]; //to return the popped value
 		FakeStack[FakeStack.length - 1] = null; //"pops" valueS
 		return t;

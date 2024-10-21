@@ -183,10 +183,12 @@ public class ImageEnhancer extends Component implements ActionListener {
   biFiltered = threshold_op.filter(biWorking, null);
     }
     public void undo() {
-    	Undo.push(getBufferedImage());
+    	Redo.push(biWorking);
+    	biWorking = Undo.pop();
     }
     public void redo() {
-    	Redo.push(getBufferedImage());
+    	Redo.push(biWorking);
+    	biWorking = Redo.pop();
     }
        
     // We handle menu selection events here: //
@@ -196,17 +198,25 @@ public class ImageEnhancer extends Component implements ActionListener {
         
         //  Also add code to enable and disable the Undo and Redo menu items, and to process
         //  these items when the user selects them.
-
-     //System.out.println("The actionEvent is "+e); // This can be useful when debugging.
-     if (e.getSource()==undoItem) { undo(); }
-     if (e.getSource()==redoItem) { redo(); }
     	
-     if (e.getSource()==exitItem) { System.exit(0); }
-     if (e.getSource()==blurItem) { blur(); }
-     if (e.getSource()==sharpenItem) { sharpen(); }
-     if (e.getSource()==darkenItem) { darken(); }
-     if (e.getSource()==photoNegItem) { photoneg(); }
-     if (e.getSource()==thresholdItem) { threshold(); }
+    	if (e.getSource()!=undoItem && e.getSource()!=redoItem)
+    	{
+    		Undo.push(biWorking);
+    		System.out.println("added to Undo");
+    	}
+    		
+    
+	     //System.out.println("The actionEvent is "+e); // This can be useful when debugging.
+	     if (e.getSource()==undoItem) { undo(); }
+	     if (e.getSource()==redoItem) { redo(); }
+	    	
+	     if (e.getSource()==exitItem) { System.exit(0); }
+	     if (e.getSource()==blurItem) { blur(); }
+	     if (e.getSource()==sharpenItem) { sharpen(); }
+	     if (e.getSource()==darkenItem) { darken(); }
+	     if (e.getSource()==photoNegItem) { photoneg(); }
+	     if (e.getSource()==thresholdItem) { threshold(); }
+	     
         gWorking.drawImage(biFiltered, 0, 0, null); // Draw the pixels from biFiltered into biWorking.
         repaint(); // Ask Swing to update the screen.
         printNumbersOfElementsInBothStacks(); // Report on the states of the stacks.
