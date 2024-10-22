@@ -29,7 +29,7 @@ public class BufferedImageStack {
 	public boolean isEmpty()
 	{
 		for(BufferedImage a : FakeStack ) {
-			if( a == null ) return false; }
+			if( a != null ) return false; }
 		return true;
 	}
 	
@@ -55,14 +55,12 @@ public class BufferedImageStack {
 		
 		int nullindex = 0;
 		for (int i = 0; i < FakeStack.length; i++)
-		{
 			if (FakeStack[i] == null)
 			{
 				nullindex = i;
 				break;
 			}
-				
-		}
+		
 		BufferedImage t;
 		
 		if (nullindex > 0)

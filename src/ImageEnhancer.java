@@ -99,8 +99,8 @@ public class ImageEnhancer extends Component implements ActionListener {
      menuBar.add(editMenu);
      menuBar.add(imageMenu);
      
-     undoItem.setEnabled(true);
-     redoItem.setEnabled(true);
+     undoItem.setEnabled(false);
+     redoItem.setEnabled(false);
      
     }
     void setUpImageTransformations() {
@@ -194,20 +194,27 @@ public class ImageEnhancer extends Component implements ActionListener {
     	if (e.getSource()!=undoItem && e.getSource()!=redoItem)
     	{
     		Undo.push(copyImage(biWorking));
-    		System.out.println("added to Undo");
+    		undoItem.setEnabled(true);
     	}
     		
-    
 	     //System.out.println("The actionEvent is "+e); // This can be useful when debugging.
 	     if (e.getSource()==undoItem) {
-	    	//Redo.push(biWorking);
+	    	 Redo.push(copyImage(biWorking));
 	    	 biFiltered = copyImage(Undo.pop());
+	    	 redoItem.setEnabled(true);
 	     }
 	     
 	     if (e.getSource()==redoItem) {
-	    	 Redo.push(biWorking);
-	    	 biFiltered = Redo.pop();
+	    	 Undo.push(copyImage(biWorking));
+	    	 biFiltered = copyImage(Redo.pop());
+	    	 undoItem.setEnabled(true);
 	     }
+	     
+	     if (Undo.isEmpty())
+	    		undoItem.setEnabled(false);
+	     
+	     if (Redo.isEmpty())
+	    	 	redoItem.setEnabled(false);
 	    	
 	     if (e.getSource()==exitItem) { System.exit(0); }
 	     if (e.getSource()==blurItem) { blur(); }
