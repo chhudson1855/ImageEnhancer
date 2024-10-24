@@ -7,13 +7,13 @@ public class BufferedImageStack {
 	
 	public void push(BufferedImage someBufferedImage)
 	{
-		int CountOfNull = (int) Arrays.stream(FakeStack).filter(i -> i == null).count();
+		int CountOfNull = (int) Arrays.stream(FakeStack).filter(i -> i == null).count(); //number of null items
 		
-		if (CountOfNull == 0)
-			FakeStack = Arrays.copyOf(FakeStack, FakeStack.length * 2);
+		if (CountOfNull == 0) //if there are no more null items
+			FakeStack = Arrays.copyOf(FakeStack, FakeStack.length * 2);//makes a copy with the same values with double the length
 		
 		int nullindex = 0;
-		for (int i = 0; i < FakeStack.length; i++)
+		for (int i = 0; i < FakeStack.length; i++) // finds nullindex to slot pushed BuffferedImage into
 		{
 			if (FakeStack[i] == null)
 			{
@@ -29,7 +29,7 @@ public class BufferedImageStack {
 	public boolean isEmpty()
 	{
 		for(BufferedImage a : FakeStack ) {
-			if( a != null ) return false; }
+			if( a != null ) return false; } //if there is any value that isn't null, then it isn't empty
 		return true;
 	}
 	
@@ -40,7 +40,7 @@ public class BufferedImageStack {
 	
 	public int getSize()
 	{
-		return FakeStack.length - ((int)Arrays.stream(FakeStack).filter(i -> i == null).count());
+		return FakeStack.length - ((int)Arrays.stream(FakeStack).filter(i -> i == null).count());//returns the amount of non-null values
 	}
 	
 	public int getArraySize()
@@ -53,6 +53,7 @@ public class BufferedImageStack {
 		if (FakeStack[0] == null)
 			throw new java.util.EmptyStackException();
 		
+		//to pop the last non-null item in FakeStack
 		int nullindex = 0;
 		for (int i = 0; i < FakeStack.length; i++)
 			if (FakeStack[i] == null)
